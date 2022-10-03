@@ -129,14 +129,13 @@ label watching_together2:
                 m 4eua "Letting yourself watch mindless things online for awhile isn't always a bad thing."
                 m 3hublb "And if it lets us spend more time together, that's even better!"
 
-            "Read with me":
+            "Reading together":
                 $ persistent._watching_you = "read"
 
-                show monika 2sud
-                pause 1.0
-                m 2sub "Of course I will!"
+                m 2sud ".{w=0.5}.{w=0.5}."
+                m 1sub "Of course I will!"
                 m 1dsc "...Ahem."
-                m 3eua "What were you planning on reading, [mas_get_player_nickname()]?"
+                m 7eua "What were you planning on reading, [mas_get_player_nickname()]?"
 
                 $ _history_list.pop()
                 menu:
@@ -146,13 +145,10 @@ label watching_together2:
 
                         m 4wub "Hey! That's {i}my{/i} favorite genre!"
                         m 7gtu "I wonder if you picked it out for that reason?"
-                        show monika 2gkbsa
-                        pause 1.0
-                        show monika 2lkbssdra
-                        pause 1.0
+                        m 1lkbssdra ".{w=0.5}.{w=0.5}."
                         m 2lkbfsdrb "...That would be really sweet, actually."
                         m 2rkbla "Gosh, I can't believe I just flustered myself like that."
-                        $ _wellso = "Well,{w=0.5}"
+                        $ _wellso = "Well,{w=0.5} "
 
                     "Horror":
                         $ persistent._player_reading = "horror"
@@ -174,7 +170,7 @@ label watching_together2:
                             else:
                                 if not persistent._seen_horror:
                                     m 3rsd "Oh yeah, I remember you telling me that you're a fan of horror before."
-                                    m 3eua "It can be really thought-provoking, huh?"
+                                    m 1eua "It can be really thought-provoking, huh?"
                                     $ persistent._seen_horror = True
                                     $ _wellso = "Well,{w=0.5} "
 
@@ -200,8 +196,8 @@ label watching_together2:
                         m 3msbsu "Oh? You want to read some cheesy romance novel with your girlfriend?"
                         if mas_is18Over() and mas_isMoniLove(higher=True):
                             m 1tubsu "Does it happen to be an {i}adult{/i} romance novel?"
-                        show monika 1ruu
-                        pause 1.0
+                        m 1guu ".{w=0.5}.{w=0.5}."
+                        m 1huu "Ehehe~"
                         m 3huu "Sorry, [player], I couldn't resist teasing you a little~"
                         $ _wellso = "Well,{w=0.5} "
 
@@ -211,12 +207,12 @@ label watching_together2:
                         if seen_event('monika_otaku'):
                             if persistent._mas_pm_watch_mangime == True:
                                 if not persistent._seen_manga:
-                                    m 3eua "That makes sense."
+                                    m 3rud "That makes sense."
                                     m 4rud "You {i}did{/i} mention that you're into stuff like that before."
                                     $ persistent._seen_manga = True
                                     $ _wellso = "So, "
                                 else:
-                                    m 3rsd "I'm not very well-versed in manga,{w=0.3}"
+                                    m 3rsd "I'm not very well-versed in manga,{w=0.5}{nw}"
                                     extend 3eua " but I'm open to trying new things."
                                     m 4eub "I mean, there's a lot of variety when it comes to anime and manga, right?"
                                     m 7hub "So, there's probably {i}something{/i} I would like."
@@ -228,7 +224,7 @@ label watching_together2:
                                     $ persistent._seen_manga = True
                                     $ _wellso = "Well, "
                                 else:
-                                    m 3rsd "I'm not very well-versed in manga,{w=0.3}"
+                                    m 3rsd "I'm not very well-versed in manga,{w=0.5}{nw}"
                                     extend 3eua " but I'm open to trying new things."
                                     m 4eub "I mean, there's a lot of variety when it comes to anime and manga, right?"
                                     m 7hub "So, there's probably {i}something{/i} I would like."
@@ -282,9 +278,7 @@ label watching_together2:
             "I'm ready!":
                 m 1hua "Great!"
 
-        if persistent._watching_you == "read":
-            m 1huu "I'm so excited to get into this story with you."
-        elif persistent._watching_you == "draw":
+        if persistent._watching_you == "draw":
             m 1sub "I can't wait to see what you end up drawing!"
         elif persistent._watching_you == "code":
             m 7eub "Make sure to keep your code organized and easy to read!"
