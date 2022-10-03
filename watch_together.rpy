@@ -8,8 +8,9 @@ init -990 python in mas_submod_utils:
         dependencies={},
         settings_pane=None,
         version_updates={
-            "geneTechnician_watch_things_with_monika_1_2_0": "geneTechnician_watch_things_with_monika_1_3_2",
-            "geneTechnician_watch_things_with_monika_1_3_0": "geneTechnician_watch_things_with_monika_1_3_2"
+            "geneTechnician_watch_things_with_monika_1_2_0": "geneTechnician_watch_things_with_monika_1_3_3",
+            "geneTechnician_watch_things_with_monika_1_3_0": "geneTechnician_watch_things_with_monika_1_3_3",
+            "geneTechnician_watch_things_with_monika_1_3_2": "geneTechnician_watch_things_with_monika_1_3_3"
         }
     )
 
