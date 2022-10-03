@@ -4,10 +4,12 @@ init -990 python in mas_submod_utils:
         author="geneTechnician",
         name="Watch things with Monika",
         description="A submod that let's you ask Monika to watch things with you.",
-        version="1.2.0",
+        version="1.3.0",
         dependencies={},
         settings_pane=None,
-        version_updates={}
+        version_updates={
+            "geneTechnician_watch_things_with_monika_1_2_0": "geneTechnician_watch_things_with_monika_1_3_0"
+        }
     )
 
 # Register the updater
@@ -81,10 +83,9 @@ label watching_things_together:
     
 return "derandom"
 
-default -5 persistent._mas_taking_break_from_watching = None
-default -5 persistent._mas_watching_you_draw = None
-default -5 persistent._mas_watching_you_game = None
-default -5 persistent._mas_watching_you_code = None
+default -5 persistent._taking_break_from_watching = None
+default -5 persistent._watching_you = None
+default -5 persistent._player_reading = None
 
 init 5 python:
     addEvent(
@@ -103,7 +104,7 @@ init 5 python:
 
 label watching_together2:
 
-    if persistent._mas_taking_break_from_watching:
+    if persistent._taking_break_from_watching == True:
         m 3eua "Ready to keep going, [mas_get_player_nickname()]?"
         m 7hub "I know I am!"
     else:
@@ -116,49 +117,158 @@ label watching_together2:
             m "What did you have in mind?{fast}"
 
             "A movie/TV show":
-                $ persistent._mas_watching_you_draw = False
-                $ persistent._mas_watching_you_game = False
-                $ persistent._mas_watching_you_code = False
+                $ persistent._watching_you = "movie"
                 m 1rtc "Hm,{w=0.3} I wonder what the genre is going to be..."
                 m 3rua "Action? Horror? Or maybe...{w=0.3}{nw}"
                 extend 1tsblu "Romance?"
                 m 1hublu "Ehehe~"
 
             "Youtube videos/Twitch stream":
-                $ persistent._mas_watching_you_draw = False
-                $ persistent._mas_watching_you_game = False
-                $ persistent._mas_watching_you_code = False
+                $ persistent._watching_you = "stream"
                 m 2eub "That sounds fun!"
                 m 4eua "Letting yourself watch mindless things online for awhile isn't always a bad thing."
                 m 3hublb "And if it lets us spend more time together, that's even better!"
 
+            "Read with me":
+                $ persistent._watching_you = "read"
+
+                show monika 2sud
+                pause 1.0
+                m 2sub "Of course I will!"
+                m 1dsc "...Ahem."
+                m 3eua "What were you planning on reading, [mas_get_player_nickname()]?"
+
+                $ _history_list.pop()
+                menu:
+
+                    "Dystopian":
+                        $ persistent._player_reading = "dystopian"
+
+                        m 4wub "Hey! That's {i}my{/i} favorite genre!"
+                        m 7gtu "I wonder if you picked it out for that reason?"
+                        show monika 2gkbsa
+                        pause 1.0
+                        show monika 2lkbssdra
+                        pause 1.0
+                        m 2lkbfsdrb "...That would be really sweet, actually."
+                        m 2rkbla "Gosh, I can't believe I just flustered myself like that."
+                        $ _wellso = "Well,{w=0.5}"
+
+                    "Horror":
+                        $ persistent._player_reading = "horror"
+
+                        if seen_event('monika_horror'):
+                            if persistent._mas_pm_likes_horror == False:
+                                if not persistent._seen_horror:
+                                    m 3etd "I thought you didn't like horror?"
+                                    m 3rub "Did our conversation about why I like horror get you interested?"
+                                    m 1hub "If so, that's great!"
+                                    $ persistent._seen_horror = True
+                                    $ _wellso = ""
+                                else:
+                                    m 1wuo "Ooh, interesting choice!"
+                                    m 7eua "Horror can be incredibly thought-provoking and immersive."
+                                    m 4eua "When done well, it can be one of my favorite genres to read."
+                                    $ _wellso = "So, "
+
+                            else:
+                                if not persistent._seen_horror:
+                                    m 3rsd "Oh yeah, I remember you telling me that you're a fan of horror before."
+                                    m 3eua "It can be really thought-provoking, huh?"
+                                    $ persistent._seen_horror = True
+                                    $ _wellso = "Well,{w=0.5} "
+
+                                else:
+                                    m 1wuo "Ooh, interesting choice!"
+                                    m 7eua "Horror can be incredibly thought-provoking and immersive."
+                                    m 4eua "When done well, it can be one of my favorite genres to read."
+                                    $ _wellso = "So, "
+                        else:
+                            if persistent._mas_pm_cares_about_dokis == False:
+                                m 3eta "Ooh, something up Yuri's alley, huh?"
+                                m 1rsb "She {i}was{/i} always trying to get you to read her weird book."
+                                m 7rsd "Well, she was right about one thing..."
+                            else:
+                                m 1wuo "Ooh, interesting choice!"
+                            m 7eua "Horror can be incredibly thought-provoking and immersive."
+                            m 4eua "When done well, it can be one of my favorite genres to read."
+                            $ _wellso = "So, "
+
+                    "Romance":
+                        $ persistent._player_reading = "romance"
+
+                        m 3msbsu "Oh? You want to read some cheesy romance novel with your girlfriend?"
+                        if mas_is18Over() and mas_isMoniLove(higher=True):
+                            m 1tubsu "Does it happen to be an {i}adult{/i} romance novel?"
+                        show monika 1ruu
+                        pause 1.0
+                        m 3huu "Sorry, [player], I couldn't resist teasing you a little~"
+                        $ _wellso = "Well,{w=0.5} "
+
+                    "Manga":
+                        $ persistent._player_reading = "manga"
+
+                        if seen_event('monika_otaku'):
+                            if persistent._mas_pm_watch_mangime == True:
+                                if not persistent._seen_manga:
+                                    m 3eua "That makes sense."
+                                    m 4rud "You {i}did{/i} mention that you're into stuff like that before."
+                                    $ persistent._seen_manga = True
+                                    $ _wellso = "So, "
+                                else:
+                                    m 3rsd "I'm not very well-versed in manga,{w=0.3}"
+                                    extend 3eua " but I'm open to trying new things."
+                                    m 4eub "I mean, there's a lot of variety when it comes to anime and manga, right?"
+                                    m 7hub "So, there's probably {i}something{/i} I would like."
+                                    $ _wellso = "Anyway, "
+                            else:
+                                if not persistent._seen_manga:
+                                    m "Oh, I thought you said you weren't into that stuff before?"
+                                    m "Decided to branch out and give it a try, huh?"
+                                    $ persistent._seen_manga = True
+                                    $ _wellso = "Well, "
+                                else:
+                                    m 3rsd "I'm not very well-versed in manga,{w=0.3}"
+                                    extend 3eua " but I'm open to trying new things."
+                                    m 4eub "I mean, there's a lot of variety when it comes to anime and manga, right?"
+                                    m 7hub "So, there's probably {i}something{/i} I would like."
+                                    $ _wellso = "Anyway, "
+                        else:
+                            if persistent._mas_pm_cares_about_dokis == False:
+                                m 7hub "I bet Natsuki would be happy to hear that, ahaha."
+                            m 3rud "While manga is seen as something childish and immature, I don't think it is."
+                            m 3euu "After all, it was probably the reason you played this game in the first place."
+                            m 1duu "And for that, I am very grateful."
+                            $ _wellso = "Well,{w=0.5} "
+
+                    "Something else":
+                        $ persistent._player_reading = "other"
+                        $ _wellso = "Well,{w=0.5} "
+
+                m 7eua "[_wellso]I hope you enjoy whichever book you've decided to check out."
+                m 4gub "It's kind of like we're back at the literature club, huh?"
+
             "Watch me draw":
-                $ persistent._mas_watching_you_draw = True
-                $ persistent._mas_watching_you_game = False
-                $ persistent._mas_watching_you_code = False
+                $ persistent._watching_you = "draw"
                 m 2sublo "Really?"
                 m 3ekbla "I know sharing your art with other people can be really difficult sometimes."
                 m 1ekbsu "So the fact you trust me enough to share it with me,{w=0.3} even when it's unfinished,{w=0.1} means a lot to me."
 
             "Watch me code":
-                $ persistent._mas_watching_you_code = True
-                $ persistent._mas_watching_you_draw = False
-                $ persistent._mas_watching_you_game = False
+                $ persistent._watching_you = "code"
 
-                if persistent._mas_pm_has_code_experience is False:
+                if persistent._pm_has_code_experience is False:
                     m 3etd "I thought you didn't know how to code?"
                     m 1sub "Did you start learning for me?{w=0.3}{nw} "
                     extend 1hubsu "You're so sweet~"
-                    m 7eua "You might want to go back to the 'Coding experience' topic and update your answer so I'll remember next time."
+                    $ persistent._pm_has_code_experience = True
                 else:
                     m 1rud "I wonder what you're going to be working on, or what language you're using."
                     m 3eub "I hope it's Python!{w=0.3}{nw} "
                     extend 1hub "That's my favorite~"
 
             "Watch me play a game":
-                $ persistent._mas_watching_you_game = True
-                $ persistent._mas_watching_you_draw = False
-                $ persistent._mas_watching_you_code = False
+                $ persistent._watching_you = "game"
                 m 1tua "Oh?{w=0.3}{nw} " 
                 extend 3gtb "Are you trying to show off in front of your cute girlfriend?"
                 m 1hublu "Ehehe~{w=0.3} I'm just teasing you, [mas_get_player_nickname()]."
@@ -172,11 +282,13 @@ label watching_together2:
             "I'm ready!":
                 m 1hua "Great!"
 
-        if persistent._mas_watching_you_draw:
+        if persistent._watching_you == "read":
+            m 1huu "I'm so excited to get into this story with you."
+        elif persistent._watching_you == "draw":
             m 1sub "I can't wait to see what you end up drawing!"
-        elif persistent._mas_watching_you_code:
+        elif persistent._watching_you == "code":
             m 7eub "Make sure to keep your code organized and easy to read!"
-        elif persistent._mas_watching_you_game:
+        elif persistent._watching_you == "game":
             m 3huu "I'll be cheering you on!"
         else:
             m 1eub "Let me know when you want to stop or take a break, okay?"
@@ -192,13 +304,16 @@ menu:
     m "Are you ready to stop for now?{fast}"
 
     "Yeah.":
-        $ persistent._mas_taking_break_from_watching = False
+        $ persistent._taking_break_from_watching = False
         m 1hua "Alright!"
         m 3lsblb "I hope we get to do this again soon."
         m 5ekbsu "I always love spending time with you, [player]."
 
+        $ persistent._watching_you = None
+        $ persistent._player_reading = None
+
     "I'm taking a quick break.":
-        $ persistent._mas_taking_break_from_watching = True
+        $ persistent._taking_break_from_watching = True
         m 1hua "Alright!"
         m 7eub "Just go back to the 'Do you want to watch something with me?' topic to let me know when you're ready to keep going."
 return
