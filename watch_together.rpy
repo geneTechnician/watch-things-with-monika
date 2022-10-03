@@ -4,7 +4,7 @@ init -990 python in mas_submod_utils:
         author="geneTechnician",
         name="Watch things with Monika",
         description="A submod that let's you ask Monika to watch things with you.",
-        version="1.3.2",
+        version="1.3.3",
         dependencies={},
         settings_pane=None,
         version_updates={
@@ -177,9 +177,9 @@ label watching_together2:
                                     $ _wellso = "Well,{w=0.5} "
 
                                 else:
-                                    m 1wuo "Ooh, interesting choice!"
-                                    m 7eua "Horror can be incredibly thought-provoking and immersive."
-                                    m 4eua "When done well, it can be one of my favorite genres to read."
+                                    m 1wub "Ooh, interesting choice!"
+                                    m 7eub "Horror can be incredibly thought-provoking and immersive."
+                                    m 4eub "When done well, it can be one of my favorite genres to read."
                                     $ _wellso = "So, "
                         else:
                             if persistent._mas_pm_cares_about_dokis == False:
