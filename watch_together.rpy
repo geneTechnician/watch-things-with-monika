@@ -178,8 +178,8 @@ label watching_together2:
                                     $ _wellso = "Well,{w=0.5} "
 
                                 else:
-                                    m 1wub "Ooh, interesting choice!"
-                                    m 7eub "Horror can be incredibly thought-provoking and immersive."
+                                    m 1eub "Ooh, interesting choice!"
+                                    m 7hub "Horror can be incredibly thought-provoking and immersive."
                                     m 4eub "When done well, it can be one of my favorite genres to read."
                                     $ _wellso = "So, "
                         else:
@@ -215,8 +215,8 @@ label watching_together2:
                                     $ persistent._seen_manga = True
                                     $ _wellso = "So, "
                                 else:
-                                    m 3rsd "I'm not very well-versed in manga,{w=0.5}{nw}"
-                                    extend 3esa " but I'm open to trying new things."
+                                    m 1rsd "I'm not very well-versed in manga,{w=0.5}{nw}"
+                                    extend 3esua " but I'm open to trying new things."
                                     m 4eub "I mean, there's a lot of variety when it comes to anime and manga, right?"
                                     m 7hub "So, there's probably {i}something{/i} I would like."
                                     $ _wellso = "Anyway, "
@@ -230,13 +230,13 @@ label watching_together2:
                                     $ _wellso = "Well, "
                                 else:
                                     m 1rsd "I'm not very well-versed in manga,{w=0.5}{nw}"
-                                    extend 3esa " but I'm open to trying new things."
+                                    extend 3eua " but I'm open to trying new things."
                                     m 4eub "I mean, there's a lot of variety when it comes to anime and manga, right?"
                                     m 7hub "So, there's probably {i}something{/i} I would like."
                                     $ _wellso = "Anyway, "
                         else:
                             m 1rsd "I'm not very well-versed in manga,{w=0.5}{nw}"
-                            extend 3esa " but I'm open to trying new things."
+                            extend 3eua " but I'm open to trying new things."
                             m 4eub "I mean, there's a lot of variety when it comes to anime and manga, right?"
                             m 7hub "So, there's probably {i}something{/i} I would like."
                             $ _wellso = "Anyway, "
