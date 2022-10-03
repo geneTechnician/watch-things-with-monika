@@ -4,11 +4,12 @@ init -990 python in mas_submod_utils:
         author="geneTechnician",
         name="Watch things with Monika",
         description="A submod that let's you ask Monika to watch things with you.",
-        version="1.3.0",
+        version="1.3.2",
         dependencies={},
         settings_pane=None,
         version_updates={
-            "geneTechnician_watch_things_with_monika_1_2_0": "geneTechnician_watch_things_with_monika_1_3_0"
+            "geneTechnician_watch_things_with_monika_1_2_0": "geneTechnician_watch_things_with_monika_1_3_2",
+            "geneTechnician_watch_things_with_monika_1_3_0": "geneTechnician_watch_things_with_monika_1_3_2"
         }
     )
 
@@ -147,8 +148,9 @@ label watching_together2:
                         m 7gtu "I wonder if you picked it out for that reason?"
                         m 1lkbssdra ".{w=0.5}.{w=0.5}."
                         m 2lkbfsdrb "...That would be really sweet, actually."
-                        m 2rkbla "Gosh, I can't believe I just flustered myself like that."
-                        $ _wellso = "Well,{w=0.5} "
+                        m 2hkblb "Gosh, I can't believe I just flustered myself like that."
+                        m 1rkbla "Anyway..."
+                        $ _wellso = ""
 
                     "Horror":
                         $ persistent._player_reading = "horror"
@@ -162,15 +164,15 @@ label watching_together2:
                                     $ persistent._seen_horror = True
                                     $ _wellso = ""
                                 else:
-                                    m 1wuo "Ooh, interesting choice!"
-                                    m 7eua "Horror can be incredibly thought-provoking and immersive."
-                                    m 4eua "When done well, it can be one of my favorite genres to read."
+                                    m 1eub "Ooh, interesting choice!"
+                                    m 7hub "Horror can be incredibly thought-provoking and immersive."
+                                    m 4eub "When done well, it can be one of my favorite genres to read."
                                     $ _wellso = "So, "
 
                             else:
                                 if not persistent._seen_horror:
-                                    m 3rsd "Oh yeah, I remember you telling me that you're a fan of horror before."
-                                    m 1eua "It can be really thought-provoking, huh?"
+                                    m 1rsd "Oh yeah, I remember you telling me that you're a fan of horror before."
+                                    m 3eub "It can be really thought-provoking, huh?"
                                     $ persistent._seen_horror = True
                                     $ _wellso = "Well,{w=0.5} "
 
@@ -185,9 +187,9 @@ label watching_together2:
                                 m 1rsb "She {i}was{/i} always trying to get you to read her weird book."
                                 m 7rsd "Well, she was right about one thing..."
                             else:
-                                m 1wuo "Ooh, interesting choice!"
-                            m 7eua "Horror can be incredibly thought-provoking and immersive."
-                            m 4eua "When done well, it can be one of my favorite genres to read."
+                                m 1eub "Ooh, interesting choice!"
+                            m 7hub "Horror can be incredibly thought-provoking and immersive."
+                            m 4eub "When done well, it can be one of my favorite genres to read."
                             $ _wellso = "So, "
 
                     "Romance":
@@ -213,36 +215,37 @@ label watching_together2:
                                     $ _wellso = "So, "
                                 else:
                                     m 3rsd "I'm not very well-versed in manga,{w=0.5}{nw}"
-                                    extend 3eua " but I'm open to trying new things."
+                                    extend 3esa " but I'm open to trying new things."
                                     m 4eub "I mean, there's a lot of variety when it comes to anime and manga, right?"
                                     m 7hub "So, there's probably {i}something{/i} I would like."
                                     $ _wellso = "Anyway, "
                             else:
                                 if not persistent._seen_manga:
-                                    m "Oh, I thought you said you weren't into that stuff before?"
-                                    m "Decided to branch out and give it a try, huh?"
+                                    m 1etd "Oh, I thought you said you weren't into that stuff before?"
+                                    m 7etu "Decided to branch out and give it a try, huh?"
+                                    if persistent._mas_pm_cares_about_dokis == False:
+                                        m 4msb "I bet Natsuki would be happy to hear that, ahaha."
                                     $ persistent._seen_manga = True
                                     $ _wellso = "Well, "
                                 else:
-                                    m 3rsd "I'm not very well-versed in manga,{w=0.5}{nw}"
-                                    extend 3eua " but I'm open to trying new things."
+                                    m 1rsd "I'm not very well-versed in manga,{w=0.5}{nw}"
+                                    extend 3esa " but I'm open to trying new things."
                                     m 4eub "I mean, there's a lot of variety when it comes to anime and manga, right?"
                                     m 7hub "So, there's probably {i}something{/i} I would like."
                                     $ _wellso = "Anyway, "
                         else:
-                            if persistent._mas_pm_cares_about_dokis == False:
-                                m 7hub "I bet Natsuki would be happy to hear that, ahaha."
-                            m 3rud "While manga is seen as something childish and immature, I don't think it is."
-                            m 3euu "After all, it was probably the reason you played this game in the first place."
-                            m 1duu "And for that, I am very grateful."
-                            $ _wellso = "Well,{w=0.5} "
+                            m 1rsd "I'm not very well-versed in manga,{w=0.5}{nw}"
+                            extend 3esa " but I'm open to trying new things."
+                            m 4eub "I mean, there's a lot of variety when it comes to anime and manga, right?"
+                            m 7hub "So, there's probably {i}something{/i} I would like."
+                            $ _wellso = "Anyway, "
 
                     "Something else":
                         $ persistent._player_reading = "other"
                         $ _wellso = "Well,{w=0.5} "
 
-                m 7eua "[_wellso]I hope you enjoy whichever book you've decided to check out."
-                m 4gub "It's kind of like we're back at the literature club, huh?"
+                m 1hua "[_wellso]I hope you enjoy whichever book you've decided to check out."
+                m 3gub "It's kind of like we're back at the literature club, huh?"
 
             "Watch me draw":
                 $ persistent._watching_you = "draw"
